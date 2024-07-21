@@ -1,0 +1,56 @@
+/* index.css */
+body {
+  background-color: #f8f9fa;
+}
+
+.jumbotron {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.cardCustom {
+  width: 18rem;
+}
+
+.table-custom-warning {
+  background-color: #FFDA02 !important; /* Bootstrap's default table-warning color */
+}
+
+.table-custom-warning th {
+  background-color: #FFDA02 !important; /* A stronger yellow color */
+}
+
+.navbar-nav {
+  margin-left: auto; /* Ensure nav items are pushed to the right */
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f8d7da; /* Color de fondo al hacer hover */
+  color: #721c24; /* Color del texto al hacer hover */
+}
+
+/* styles.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Fondo de la página */
+}
+
+.login-card {
+  background-color: #f1c40f; /* Amarillo oscuro */
+  padding: 2rem;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 50%;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+}
+
