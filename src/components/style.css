@@ -1,0 +1,55 @@
+.navbarBackground {
+    background-color: #003775;
+}
+
+.tableBackground {
+    background-color: #FFC216;
+}
+
+.iconNavbar {
+    height: 2rem;
+    width: 1.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.voaeLogo {
+    height: 10rem;
+    width: 20rem;
+}
+
+.verticalCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;            
+  }
+
+.botonCustom {
+    color: whitesmoke;
+    background-color: #003775;
+    width: 7rem;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.botonCustom:hover {
+    color: black;
+    background-color: #FFC216;
+}
+
+.left-aligned {
+    text-align: left;
+  }
+  
+.right-aligned {
+    text-align: right;
+}
+
+.centrarContenido {
+    text-align: center;
+}
+
+.formCustom{
+    width: 10rem;
+}

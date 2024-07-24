@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Carrera, fetchCarreras, deleteCarrera } from '../../servicios/carreraService';
 import { Modal, Button } from 'react-bootstrap';
+import '../../components/style.css';
 
 const Carreras: React.FC = () => {
   const [carreras, setCarreras] = useState<Carrera[]>([]);

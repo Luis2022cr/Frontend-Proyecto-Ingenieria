@@ -8,11 +8,14 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { AuthProvider } from './api/AuthContext';
 import Layout from './layouts/Layout';
+import LayoutAlumno from './layouts/LayoutAlumno';
+import LayoutVoae from './layouts/LayoutVoae';
 import Registro from './pages/registro';
 import Login from './pages/login';
 import Carreras from './pages/Carreras/Carreras';
 import CarreraForm from './pages/Carreras/CarreraForm';
 import DetallesCarreras from './pages/Carreras/DetallesCarrera';
+import GestionAlumno from './pages/GestionAlumno/GestionAlumno';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
  
@@ -28,6 +31,11 @@ root.render(
           <Route path="carreras/:id" element={<DetallesCarreras />} />
           <Route path="carreras/nueva" element={<CarreraForm/>} />
           <Route path="carreras/editar/:id" element={<CarreraForm/>} />
+        </Route>
+        <Route path="/" element={<LayoutAlumno />}>
+          <Route path="gestion_alumno" element={<GestionAlumno/>} />
+        </Route>
+        <Route path="/" element={<LayoutVoae />}>
         </Route>
       </Routes>
     </BrowserRouter>
