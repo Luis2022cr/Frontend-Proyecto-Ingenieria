@@ -15,11 +15,11 @@ body {
 }
 
 .table-custom-warning {
-  background-color: #FFDA02 !important; /* Bootstrap's default table-warning color */
+  background-color: #FFC216 !important; /* Bootstrap's default table-warning color */
 }
 
 .table-custom-warning th {
-  background-color: #FFDA02 !important; /* A stronger yellow color */
+  background-color: #FFC216 !important; /* A stronger yellow color */
 }
 
 .navbar-nav {
@@ -41,7 +41,7 @@ body {
 }
 
 .login-card {
-  background-color: #f1c40f; /* Amarillo oscuro */
+  background-color: #FFC216; /* Amarillo oscuro */
   padding: 2rem;
   border-radius: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

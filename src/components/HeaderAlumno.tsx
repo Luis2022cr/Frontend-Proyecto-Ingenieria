@@ -18,10 +18,10 @@ const Header: React.FC = () => {
     <Navbar className='navbarBackground' variant="dark" expand="lg">
       <Navbar.Brand className='verticalCenter' as={Link} to="/">
       <img src={logoUnah} className='iconNavbar'></img>
-        VOAE-CUROC
+        Gestion personal
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Nav.Link className='text-light verticalCenter' as={Link} to="/PrincipalEstudiante">Gestion de estudiante</Nav.Link>
+      <Nav.Link className='text-light verticalCenter' as={Link} to="/PrincipalEstudiante">Solicitudes</Nav.Link>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           {accessToken ? (
