@@ -15,7 +15,7 @@ import CarreraForm from './pages/Carreras/CarreraForm';
 import DetallesCarreras from './pages/Carreras/DetallesCarrera';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-
+ 
 root.render(
   <AuthProvider>
     <BrowserRouter>
