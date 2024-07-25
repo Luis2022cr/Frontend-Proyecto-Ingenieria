@@ -16,12 +16,15 @@ const Header: React.FC = () => {
 
   return (
     <Navbar className='navbarBackground' variant="dark" expand="lg">
-      <Navbar.Brand className='verticalCenter' as={Link} to="/">
+      <Navbar.Brand className='verticalCenter' as={Link} to="/gestion_alumno">
       <img src={logoUnah} className='iconNavbar'></img>
         Gestion personal
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Nav.Link className='text-light verticalCenter' as={Link} to="/PrincipalEstudiante">Solicitudes</Nav.Link>
+      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+      <Nav>
+        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/">Solicitudes</Nav.Link>
+        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/horas_alumno">Horas completadas</Nav.Link>
+      </Nav>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           {accessToken ? (

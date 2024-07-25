@@ -28,7 +28,7 @@
 .botonCustom {
     color: whitesmoke;
     background-color: #003775;
-    width: 7rem;
+    width: 100%;
     border: none;
     transition: background-color 0.3s, color 0.3s;
 }
