@@ -35,7 +35,6 @@ const HorasAlumno: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-
   function handleCloseErrorModal(): void {
     throw new Error('Function not implemented.');
   }
@@ -61,7 +60,6 @@ const HorasAlumno: React.FC = () => {
               </Col>
           </Row>
         </div>
-
         <div className='left-aligned'>
           <Row className='mt-4'>
               <Col>
@@ -79,8 +77,6 @@ const HorasAlumno: React.FC = () => {
         </div>
       </Col>
   </Row>
-
-
   <div className="table-responsive mt-5">
     <table className="table text-center">
       <thead>

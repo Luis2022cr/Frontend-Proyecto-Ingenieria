@@ -21,7 +21,6 @@ import HorasAlumno from './pages/GestionAlumno/HorasAlumno';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-//Se colocan las rutas a utilizar y el layout al que pertenecen
 root.render(
   <AuthProvider>
     <BrowserRouter>

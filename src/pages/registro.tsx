@@ -15,6 +15,7 @@ const Registro: React.FC = () => {
     correo_institucional: '',
     numero_usuario: '',
     contrasena: '',
+    confirmacionContrasena: '',
     carrera_id: ''
   });
   const [error, setError] = useState<string | null>(null);
@@ -42,6 +43,14 @@ const Registro: React.FC = () => {
 
   const botonRegistro = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Verificar que las contraseñas coincidan
+    if (formData.contrasena !== formData.confirmacionContrasena) {
+      setError('Las contraseñas no coinciden.');
+      setSuccess(null);
+      return;
+    }
+
     try {
       const response = await axiosInstance.post('/auth/registro', formData);
       setSuccess(response.data.message);
@@ -52,6 +61,7 @@ const Registro: React.FC = () => {
         correo_institucional: '',
         numero_usuario: '',
         contrasena: '',
+        confirmacionContrasena: '',
         carrera_id: ''
       });
     } catch (err) {
@@ -130,6 +140,17 @@ const Registro: React.FC = () => {
             value={formData.contrasena}
             onChange={handleChange}
             placeholder="Introduce tu contraseña"
+            required
+          />
+        </Form.Group>
+        <Form.Group controlId="formConfirmacionContrasena">
+          <Form.Label>Confirmar Contraseña</Form.Label>
+          <Form.Control
+            type="password"
+            name="confirmacionContrasena"
+            value={formData.confirmacionContrasena}
+            onChange={handleChange}
+            placeholder="Confirma tu contraseña"
             required
           />
         </Form.Group>
