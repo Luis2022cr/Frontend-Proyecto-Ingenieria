@@ -5,6 +5,7 @@ import { Modal, Button } from 'react-bootstrap';
 import '../../components/style.css';
 
 const Carreras: React.FC = () => {
+  //Variables a usar
   const [carreras, setCarreras] = useState<Carrera[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -12,6 +13,7 @@ const Carreras: React.FC = () => {
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  //Validar que los datos esten bien
   useEffect(() => {
     const obtenerCarreras = async () => {
       setLoading(true);
@@ -30,6 +32,7 @@ const Carreras: React.FC = () => {
     obtenerCarreras();
   }, []);
 
+  //
   const handleDelete = async (id: number) => {
     try {
       await deleteCarrera(id);
@@ -56,10 +59,12 @@ const Carreras: React.FC = () => {
     navigate('/carreras'); // Navigate back to the carreras page
   };
 
+  //Mostrar mientras se hace la consulta
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  //Aqui se crea y gestiona la interfaz HTML y CSS
   return (
     <div className="container mt-5">
   <h2>Carreras</h2>

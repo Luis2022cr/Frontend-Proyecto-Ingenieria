@@ -21,7 +21,10 @@ const Header: React.FC = () => {
         VOAE-CUROC
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Nav.Link className='text-light verticalCenter' as={Link} to="/PrincipalEstudiante">Gestion de estudiante</Nav.Link>
+      <Nav>
+        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/gestion_alumno">Gestion Alumno</Nav.Link>
+        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/gestion_alumno">Gestion VOAE</Nav.Link>
+      </Nav>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
           {accessToken ? (

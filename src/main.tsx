@@ -16,9 +16,12 @@ import Carreras from './pages/Carreras/Carreras';
 import CarreraForm from './pages/Carreras/CarreraForm';
 import DetallesCarreras from './pages/Carreras/DetallesCarrera';
 import GestionAlumno from './pages/GestionAlumno/GestionAlumno';
+import HorasAlumno from './pages/GestionAlumno/HorasAlumno';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
+//Se colocan las rutas a utilizar y el layout al que pertenecen
 root.render(
   <AuthProvider>
     <BrowserRouter>
@@ -34,10 +37,11 @@ root.render(
         </Route>
         <Route path="/" element={<LayoutAlumno />}>
           <Route path="gestion_alumno" element={<GestionAlumno/>} />
+          <Route path="horas_alumno" element={<HorasAlumno/>} />
         </Route>
         <Route path="/" element={<LayoutVoae />}>
         </Route>
       </Routes>
     </BrowserRouter>
-  </AuthProvider>
+  </AuthProvider> 
 );
