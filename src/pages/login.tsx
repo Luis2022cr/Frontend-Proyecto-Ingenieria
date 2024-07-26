@@ -3,6 +3,7 @@ import axiosInstance from '../api/axiosInstance';
 import useAuth from '../api/useAuth';
 import { Button, Form, Container, Alert, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import LogoVoae from '../media/logo_voae.png'
 
 const Login: React.FC = () => {
   const { login, accessToken } = useAuth();
@@ -37,8 +38,9 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
-      <div className="login-card">
-        <Container>
+      <Container className="d-flex flex-column align-items-center">
+        <img src={LogoVoae} alt="Login" className="mb-4" />
+        <div className="login-card">
           <h2 className='text-center mb-4'>Login</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           {success && <Alert variant="success">{success}</Alert>}
@@ -79,8 +81,8 @@ const Login: React.FC = () => {
               </Button>
             </div>
           </Form>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </div>
   );
 };

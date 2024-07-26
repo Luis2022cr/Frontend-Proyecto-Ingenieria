@@ -25,7 +25,6 @@ export const fetchCarreraPorId = async (id: number): Promise<Carrera | null> => 
   }
 };
 
-
 //Crear nuevo
 export const createCarrera = async (carrera: Omit<Carrera, 'id'>): Promise<Carrera> => {
   const response = await axiosInstance.post('/carreras', carrera);
@@ -38,8 +37,3 @@ export const updateCarrera = async (id: number, carrera: Omit<Carrera, 'id'>): P
   return response.data;
 };
 
-//Borrar dato
-export const deleteCarrera = async (id: number): Promise<boolean> => {
-    const response = await axiosInstance.delete<boolean>(`/carreras/${id}`);
-    return response.data;
-};

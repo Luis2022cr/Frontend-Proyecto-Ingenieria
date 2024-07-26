@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Carrera, fetchCarreras, deleteCarrera } from '../../servicios/carreraService';
+import { Carrera, fetchCarreras } from '../../servicios/carreraService';
 import { Modal, Button } from 'react-bootstrap';
 import '../../components/style.css';
 
@@ -9,7 +9,6 @@ const Carreras: React.FC = () => {
   const [carreras, setCarreras] = useState<Carrera[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [carreraToDelete, setCarreraToDelete] = useState<number | null>(null);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -31,28 +30,6 @@ const Carreras: React.FC = () => {
 
     obtenerCarreras();
   }, []);
-
-  //
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteCarrera(id);
-      setCarreras(prevCarreras => prevCarreras.filter(carrera => carrera.id !== id));
-      setCarreraToDelete(null);
-    } catch (error) {
-      console.error('Error deleting carrera:', error);
-      setError('Error al borrar la carrera (esta vinculada a usuarios).');
-      setShowErrorModal(true);
-    }
-  };
-
-  const handleConfirmDelete = (id: number) => {
-    setCarreraToDelete(id);
-  };
-
-  const handleCancelDelete = () => {
-    setCarreraToDelete(null);
-    setError(null); // Clear the error when cancelling
-  };
 
   const handleCloseErrorModal = () => {
     setShowErrorModal(false);
@@ -79,7 +56,6 @@ const Carreras: React.FC = () => {
           <th scope="col">Facultad</th>
           <th scope="col">Ver detalles</th>
           <th scope="col">Editar</th>
-          <th scope="col">Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -95,34 +71,13 @@ const Carreras: React.FC = () => {
             <td>
               <Link to={`/carreras/editar/${carrera.id}`} className="btn btn-warning">Editar</Link>
             </td>
-            <td>
-              <button
-                className="btn btn-danger"
-                onClick={() => handleConfirmDelete(carrera.id)}
-              >
-                Eliminar
-              </button>
-            </td>
+           
           </tr>
         ))}
       </tbody>
     </table>
   </div>
 
-  <Modal show={carreraToDelete !== null} onHide={handleCancelDelete}>
-    <Modal.Header closeButton>
-      <Modal.Title>Confirmar eliminación</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>¿Estás seguro de eliminar esta carrera?</Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={handleCancelDelete}>
-        Cancelar
-      </Button>
-      <Button variant="danger" onClick={() => handleDelete(carreraToDelete!)}>
-        Confirmar
-      </Button>
-    </Modal.Footer>
-  </Modal>
 
   <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
     <Modal.Header closeButton>
