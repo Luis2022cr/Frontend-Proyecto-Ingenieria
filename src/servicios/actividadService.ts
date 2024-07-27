@@ -15,6 +15,6 @@ export interface Actividad {
   }
   
   export const fetchActividades = async (): Promise<Actividad[]> => {
-    const response = await axiosInstance.get<Actividad[]>('/gestion_alumno');
+    const response = await axiosInstance.get<Actividad[]>('/actividades');
     return response.data;
   };
