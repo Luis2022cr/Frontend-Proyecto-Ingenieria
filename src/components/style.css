@@ -38,6 +38,39 @@
     background-color: #FFC216;
 }
 
+.botonUnirse{
+    color: white;
+    text-align: center;
+    background-color: green;
+    border: none;
+    width: 40%;
+    border-radius: 20%;
+    transition: background-color 0.3s, color 0.3s, width 0.5s;
+    margin-right: .1rem;
+}
+
+.botonUnirse:hover{
+    color: white;
+    background-color: #8dd91b;
+    width: 50%;
+}
+
+.botonCancelar{
+    color: white;
+    background-color: #d31d0d;
+    border: none;
+    width: 40%;
+    border-radius: 20%;
+    transition: background-color 0.3s, color 0.3s, width 0.5s;
+    margin-left: 0.5rem;
+}
+
+.botonCancelar:hover{
+    color: white;
+    background-color: #ff5f51;
+    width: 50%;
+}
+
 .left-aligned {
     text-align: left;
   }
