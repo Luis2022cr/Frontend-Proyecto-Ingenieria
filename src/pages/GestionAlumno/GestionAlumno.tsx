@@ -47,7 +47,6 @@ const HorasAlumno: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
-  //Obtener actividades con y sin filtros aplicados
   useEffect(() => {
     const obtenerActividades = async () => {
       setLoading(true);
@@ -56,6 +55,7 @@ const HorasAlumno: React.FC = () => {
         const actividades = await fetchActividades();
         setActividades(actividades);
         setFilteredActividades(actividades); // Inicialmente, muestra todas las actividades
+
       } catch (error) {
         setError('Error fetching actividades');
         console.error('Error fetching actividades:', error);
@@ -141,7 +141,6 @@ const HorasAlumno: React.FC = () => {
     setFilteredActividades(filtered);
   };
 
-  //Pantalla de carga
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -287,6 +286,7 @@ const HorasAlumno: React.FC = () => {
       <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
+
         </Modal.Header>
         <Modal.Body>{error}</Modal.Body>
         <Modal.Footer>

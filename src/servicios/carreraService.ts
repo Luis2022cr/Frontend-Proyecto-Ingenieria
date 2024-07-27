@@ -25,7 +25,6 @@ export const fetchCarreraPorId = async (id: number): Promise<Carrera | null> => 
   }
 };
 
-
 //Crear nuevo
 export const createCarrera = async (carrera: Omit<Carrera, 'id'>): Promise<Carrera> => {
   const response = await axiosInstance.post('/carreras', carrera);

@@ -36,8 +36,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0; /* Fondo de la página */
+  background-color: #ffffff; 
 }
 
 .login-card {
@@ -48,9 +47,30 @@ body {
   width: 50%;
 }
 
+.registration-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.registration-card {
+  background-color: #FFC216; /* Amarillo oscuro */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Menor ancho */
+  max-width: 1000px; /* Ancho máximo de la tarjeta */
+  margin: 1rem auto; /* Margen superior e inferior */
+}
+
 .submit-button {
   display: flex;
   justify-content: center;
   border-radius: 50px;
 }
 
+img {
+  width: 100%;
+  max-width: 400px; /* Ancho máximo del logo */
+  height: auto;
+}
