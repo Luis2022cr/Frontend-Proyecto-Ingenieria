@@ -1,88 +1,96 @@
 .navbarBackground {
-    background-color: #003775;
+  background-color: #003775;
 }
 
 .tableBackground {
-    background-color: #FFC216;
+  background-color: #ffc216;
 }
 
 .iconNavbar {
-    height: 2rem;
-    width: 1.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+  height: 2rem;
+  width: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .voaeLogo {
-    height: 10rem;
-    width: 20rem;
+  height: 10rem;
+  width: 20rem;
 }
 
 .verticalCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;            
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
 
 .botonCustom {
-    color: whitesmoke;
-    background-color: #003775;
-    width: 100%;
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
+  color: whitesmoke;
+  background-color: #003775;
+  width: 100%;
+  border: none;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .botonCustom:hover {
-    color: black;
-    background-color: #FFC216;
+  color: black;
+  background-color: #ffc216;
 }
 
-.botonUnirse{
-    color: white;
-    text-align: center;
-    background-color: green;
-    border: none;
-    width: 40%;
-    border-radius: 20%;
-    transition: background-color 0.3s, color 0.3s, width 0.5s;
-    margin-right: .1rem;
+.botonUnirse {
+  color: white;
+  text-align: center;
+  background-color: green;
+  border: none;
+  width: 40%;
+  border-radius: 20%;
+  transition: background-color 0.3s, color 0.3s, width 0.5s;
+  margin-right: 0.1rem;
 }
 
-.botonUnirse:hover{
-    color: white;
-    background-color: #8dd91b;
-    width: 50%;
+.botonUnirse:hover {
+  color: white;
+  background-color: #8dd91b;
+  width: 50%;
 }
 
-.botonCancelar{
-    color: white;
-    background-color: #d31d0d;
-    border: none;
-    width: 40%;
-    border-radius: 20%;
-    transition: background-color 0.3s, color 0.3s, width 0.5s;
-    margin-left: 0.5rem;
+.botonCancelar {
+  color: white;
+  background-color: #d31d0d;
+  border: none;
+  width: 40%;
+  border-radius: 20%;
+  transition: background-color 0.3s, color 0.3s, width 0.5s;
+  margin-left: 0.5rem;
 }
 
-.botonCancelar:hover{
-    color: white;
-    background-color: #ff5f51;
-    width: 50%;
+.botonParticipantes {
+  background-color: #03407e; /* Azul oscuro */
+  color: white; /* Color del texto */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botonCancelar:hover {
+  color: white;
+  background-color: #ff5f51;
+  width: 50%;
 }
 
 .left-aligned {
-    text-align: left;
-  }
-  
+  text-align: left;
+}
+
 .right-aligned {
-    text-align: right;
+  text-align: right;
 }
 
 .centrarContenido {
-    text-align: center;
+  text-align: center;
 }
 
-.formCustom{
-    width: 10rem;
+.formCustom {
+  width: 10rem;
 }
