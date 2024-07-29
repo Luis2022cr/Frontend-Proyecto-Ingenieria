@@ -23,7 +23,7 @@ const Header: React.FC = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav"/>
       <Nav>
         <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/">Solicitudes</Nav.Link>
-        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/horas_alumno">Horas completadas</Nav.Link>
+        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to={`/horas_alumno/${numeroUsuario}`}>Horas completadas</Nav.Link>
       </Nav>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

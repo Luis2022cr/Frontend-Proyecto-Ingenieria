@@ -40,14 +40,11 @@ root.render(
         </Route>
         <Route path="/" element={<LayoutAlumno />}>
           <Route path="gestion_alumno" element={<GestionAlumno />} />
-          <Route path="horas_alumno" element={<HorasAlumno />} />
+          <Route path="horas_alumno/:id" element={<HorasAlumno />} />
         </Route>
         <Route path="/" element={<LayoutVoae />}>
           <Route path="gestion_voae" element={<GestionVoae />} />
-          <Route
-            path="gestion_voae/participantes_actividad"
-            element={<ParticipantesActividad />}
-          />
+          <Route path="gestion_voae/participantes_actividad" element={<ParticipantesActividad />}/>
         </Route>
       </Routes>
     </BrowserRouter>

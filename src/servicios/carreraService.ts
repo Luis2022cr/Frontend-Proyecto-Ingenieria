@@ -37,7 +37,7 @@ export const updateCarrera = async (id: number, carrera: Omit<Carrera, 'id'>): P
   return response.data;
 };
 
-//Borrar dato
+//Borrar datos
 export const deleteCarrera = async (id: number): Promise<boolean> => {
     const response = await axiosInstance.delete<boolean>(`/carreras/${id}`);
     return response.data;
