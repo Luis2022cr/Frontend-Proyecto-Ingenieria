@@ -94,3 +94,30 @@
 .formCustom {
   width: 10rem;
 }
+
+////////////
+.iconNavbar {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.verticalCenter {
+  display: flex;
+  align-items: center;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.nav-link-custom {
+  color: #fff !important;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-link-custom:hover {
+  text-decoration: underline;
+  font-weight: bold;
+  transition: all 0.1s ease;
+}

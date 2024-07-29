@@ -19,6 +19,8 @@ import GestionAlumno from "./pages/GestionAlumno/GestionAlumno";
 import HorasAlumno from "./pages/GestionAlumno/HorasAlumno";
 import GestionVoae from "./pages/GestionVoae/GestionVoae";
 import ParticipantesActividad from "./pages/GestionVoae/ParticipantesActividad";
+import ResetPassword from "./pages/ResetPassword";
+import ActividadForm from "./pages/Actividades/ActividadForm";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -37,6 +39,8 @@ root.render(
           <Route path="carreras/:id" element={<DetallesCarreras />} />
           <Route path="carreras/nueva" element={<CarreraForm />} />
           <Route path="carreras/editar/:id" element={<CarreraForm />} />
+        <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="actividades/crear" element={<ActividadForm />} />
         </Route>
         <Route path="/" element={<LayoutAlumno />}>
           <Route path="gestion_alumno" element={<GestionAlumno />} />

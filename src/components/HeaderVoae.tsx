@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Nav, Button, Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../api/useAuth";
-import "./style.css"; //Importar css extra
+import "./style.css"; // Importar css extra
 import logoUnah from "../media/Logo UNAH.png";
 
 const Header: React.FC = () => {
@@ -17,42 +17,33 @@ const Header: React.FC = () => {
   return (
     <Navbar className="navbarBackground" variant="dark" expand="lg">
       <Navbar.Brand className="verticalCenter" as={Link} to="/">
-        <img src={logoUnah} className="iconNavbar"></img>
+        <img src={logoUnah} className="iconNavbar" alt="logo" />
         Gestion-VOAE
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Nav>
-        <Nav.Link
-          className="text-light verticalCenter"
-          as={Link}
-          to="/PrincipalEstudiante"
-        >
-          Gestion Solicitudes
-        </Nav.Link>
-        <Nav.Link
-          className="text-light verticalCenter"
-          as={Link}
-          to="/PrincipalEstudiante"
-        >
-          Actividades
-        </Nav.Link>
-        <Nav.Link
-          className="text-light verticalCenter"
-          as={Link}
-          to="/PrincipalEstudiante"
-        >
-          Horas de estudiante
-        </Nav.Link>
-      </Nav>
-
       <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="ml-auto">
+          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+            Gestion Solicitudes
+          </Nav.Link>
+          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+            Actividades
+          </Nav.Link>
+          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+            Horas de estudiante
+          </Nav.Link>
+          {accessToken && (
+            <Nav.Link className="nav-link-custom" as={Link} to="/registro">
+              Registro
+            </Nav.Link>
+          )}
+        </Nav>
         <Nav className="ml-auto">
           {accessToken ? (
             <Dropdown align="end">
               <Dropdown.Toggle variant="light" id="dropdown-custom-components">
                 {numeroUsuario}
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 <Dropdown.Item className="text-danger" onClick={handleLogout}>
                   Cerrar Sesión
@@ -63,11 +54,6 @@ const Header: React.FC = () => {
             <>
               <Nav.Link as={Link} to="/login">
                 <Button variant="outline-light">Iniciar Sesión</Button>
-              </Nav.Link>
-              <Nav.Link as={Link} to="/registro">
-                <Button variant="outline-light" className="ml-2">
-                  Registrarse
-                </Button>
               </Nav.Link>
             </>
           )}

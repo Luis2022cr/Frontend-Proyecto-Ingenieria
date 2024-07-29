@@ -11,7 +11,7 @@ const Header: React.FC = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Redirige a la página de inicio después de cerrar sesión
+    navigate("/"); 
   };
 
   return (
@@ -36,6 +36,13 @@ const Header: React.FC = () => {
         >
           Gestion VOAE
         </Nav.Link>
+        <Nav.Link
+          className="text-light verticalCenter mt-1"
+          as={Link}
+          to="/actividades/crear"
+        >
+          Crear actividad
+        </Nav.Link>
       </Nav>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
@@ -55,11 +62,6 @@ const Header: React.FC = () => {
             <>
               <Nav.Link as={Link} to="/login">
                 <Button variant="outline-light">Iniciar Sesión</Button>
-              </Nav.Link>
-              <Nav.Link as={Link} to="/registro">
-                <Button variant="outline-light" className="ml-2">
-                  Registrarse
-                </Button>
               </Nav.Link>
             </>
           )}

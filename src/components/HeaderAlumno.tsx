@@ -17,15 +17,19 @@ const Header: React.FC = () => {
   return (
     <Navbar className='navbarBackground' variant="dark" expand="lg">
       <Navbar.Brand className='verticalCenter' as={Link} to="/gestion_alumno">
-      <img src={logoUnah} className='iconNavbar'></img>
+        <img src={logoUnah} className='iconNavbar'></img>
         Gestion personal
       </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      <Nav>
-        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to="/">Solicitudes</Nav.Link>
-        <Nav.Link className='text-light verticalCenter mt-1' as={Link} to={`/horas_alumno/${numeroUsuario}`}>Horas completadas</Nav.Link>
-      </Nav>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className='ml-auto'>
+          <Nav.Link className='nav-link-custom' as={Link} to="/">
+            Solicitudes
+          </Nav.Link>
+          <Nav.Link className='nav-link-custom' as={Link} to={`/horas_alumno/${numeroUsuario}`}>
+            Horas completadas
+          </Nav.Link>
+        </Nav>
         <Nav className="ml-auto">
           {accessToken ? (
             <Dropdown align="end">
@@ -43,9 +47,6 @@ const Header: React.FC = () => {
             <>
               <Nav.Link as={Link} to="/login">
                 <Button variant="outline-light">Iniciar Sesión</Button>
-              </Nav.Link>
-              <Nav.Link as={Link} to="/registro">
-                <Button variant="outline-light" className="ml-2">Registrarse</Button>
               </Nav.Link>
             </>
           )}
