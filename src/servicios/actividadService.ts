@@ -14,6 +14,7 @@ export interface Actividad {
     hora_final: string;
   }
   
+  //Lista de todas las actividades
   export const fetchActividades = async (): Promise<Actividad[]> => {
     const response = await axiosInstance.get<Actividad[]>('/actividades');
 

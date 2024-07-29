@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Modal, Button, Form } from 'react-bootstrap';
 import logoVoae from '../../media/logo_voae.png';
 import { Actividad, fetchActividades } from '../../servicios/actividadService';
-import { Link } from 'react-router-dom';
+import { añadirParticipante } from '../../servicios/actividadParticipanteService';
 import axiosInstance from '../../api/axiosInstance';
 import '../../components/style.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-//Cambiar formato de la fecha a dd/mm/aaaa
+// Cambiar formato de la fecha a dd/mm/aaaa
 const formatDate = (isoDateString: string | number | Date) => {
   const date = new Date(isoDateString);
   const day = String(date.getDate()).padStart(2, '0');
@@ -16,19 +16,19 @@ const formatDate = (isoDateString: string | number | Date) => {
   return `${day}/${month}/${year}`;
 };
 
-//Datos de carrera para filtros
+// Datos de carrera para filtros
 interface Carrera {
   id: number;
   nombre_carrera: string;
 }
 
-//Datos de ambito para filtros
+// Datos de ambito para filtros
 interface Ambito {
   id: number;
   nombre_ambito: string;
 }
 
-//Datos que se usaran en los filtros
+// Datos que se usarán en los filtros
 const HorasAlumno: React.FC = () => {
   const [formData, setFormData] = useState({
     nombre_actividad: '',
@@ -42,10 +42,12 @@ const HorasAlumno: React.FC = () => {
   const [filteredActividades, setFilteredActividades] = useState<Actividad[]>([]);
   const [carreras, setCarreras] = useState<Carrera[]>([]);
   const [ambitos, setAmbitos] = useState<Ambito[]>([]);
+  const userId = localStorage.getItem('userId');
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
   useEffect(() => {
     const obtenerActividades = async () => {
@@ -55,7 +57,6 @@ const HorasAlumno: React.FC = () => {
         const actividades = await fetchActividades();
         setActividades(actividades);
         setFilteredActividades(actividades); // Inicialmente, muestra todas las actividades
-
       } catch (error) {
         setError('Error fetching actividades');
         console.error('Error fetching actividades:', error);
@@ -66,7 +67,7 @@ const HorasAlumno: React.FC = () => {
     obtenerActividades();
   }, []);
 
-  //Obtener lista de carreras
+  // Obtener lista de carreras
   useEffect(() => {
     const fetchCarreras = async () => {
       try {
@@ -80,7 +81,7 @@ const HorasAlumno: React.FC = () => {
     fetchCarreras();
   }, []);
 
-  //Obtener lista de ambitos
+  // Obtener lista de ámbitos
   useEffect(() => {
     const fetchAmbitos = async () => {
       try {
@@ -94,13 +95,13 @@ const HorasAlumno: React.FC = () => {
     fetchAmbitos();
   }, []);
 
-  //Obtener id del dato seleccionado
+  // Obtener id del dato seleccionado
   const handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
     setFormData({ ...formData, [target.name]: target.value });
   };
 
-  //Gestion de los filtros y sus parametros
+  // Gestión de los filtros y sus parámetros
   const handleFiltrar = () => {
     const { carrera_id, ambito_id, nombre_actividad, fecha_inicio, fecha_final } = formData;
     let filtered = actividades;
@@ -141,14 +142,27 @@ const HorasAlumno: React.FC = () => {
     setFilteredActividades(filtered);
   };
 
+  //Unirse a una actividad
+  const handleUnirse = async (id_actividad: number) => {
+    if (!userId) return;
+
+    try {
+      await añadirParticipante({ id_usuario: Number(userId), id_actividad });
+      setShowSuccessModal(true);
+    } catch (error) {
+      setError('Error al unirse a la actividad.');
+      setShowErrorModal(true);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   const handleCloseErrorModal = () => setShowErrorModal(false);
+  const handleCloseSuccessModal = () => setShowSuccessModal(false);
 
   return (
-    //Parte superior, Filtros
     <div className="container mt-5">
       <Row>
         <Col className='centrarContenido'>
@@ -157,8 +171,8 @@ const HorasAlumno: React.FC = () => {
         <Col md={7}>
           <div className='left-aligned'>
             <Row className='mt-5'>
-              <Col>
               {/*Filtro de carrera*/}
+              <Col>
                 <Form.Group controlId="formCarreraId">
                   <Form.Control
                     as="select"
@@ -233,7 +247,7 @@ const HorasAlumno: React.FC = () => {
                 />
               </Col>
 
-              {/*Boton para aplicar los filtros*/}
+              {/*Boton para activar los filtros*/}
               <Col>
                 <button type="button" className="btn botonCustom" onClick={handleFiltrar}>Filtrar</button>
               </Col>
@@ -242,7 +256,6 @@ const HorasAlumno: React.FC = () => {
         </Col>
       </Row>
       
-      {/*Tabla de los datos*/}
       <div className="table-responsive mt-5">
         <table className="table text-center">
           <thead>
@@ -274,8 +287,20 @@ const HorasAlumno: React.FC = () => {
                 <td>{actividad.hora_inicio}</td>
                 <td>{actividad.hora_final}</td>
                 <td>
-                  <Link to="/gestion_alumno" className="btn botonUnirse"><i className="bi bi-plus-circle-fill"></i></Link>
-                  <Link to="/gestion_alumno" className="btn botonCancelar"><i className="bi bi-x-circle-fill"></i></Link>
+                  {/*Boton para unirse a las actividades*/}
+                  <button 
+                    className="btn botonUnirse"
+                    onClick={() => handleUnirse(actividad.id)}
+                  >
+                    <i className="bi bi-plus-circle-fill"></i>
+                  </button>
+
+                  {/*Boton para cancelar una actividad No esta listo*/}
+                  <button 
+                    className="btn botonCancelar"
+                  >
+                    <i className="bi bi-x-circle-fill"></i>
+                  </button>
                 </td>
               </tr>
             ))}
@@ -283,14 +308,27 @@ const HorasAlumno: React.FC = () => {
         </table>
       </div>
 
+      {/*En caso de fallo al unirse a actividad*/}
       <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
-
         </Modal.Header>
         <Modal.Body>{error}</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseErrorModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/*En caso de exito al unirse a actividad*/}
+      <Modal show={showSuccessModal} onHide={handleCloseSuccessModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Éxito</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Te has unido a la actividad con éxito.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseSuccessModal}>
             Cerrar
           </Button>
         </Modal.Footer>
