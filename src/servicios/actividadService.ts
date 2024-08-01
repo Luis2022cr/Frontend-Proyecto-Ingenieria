@@ -23,7 +23,7 @@ export interface Actividad {
   informe: string | null;
 }
 
-// Define una interfaz para los datos de una actividad al momento de crearla
+// interfaz para solicitud post
 export interface ActividadPost {
   nombre_actividad: string;
   objetivos: string;
