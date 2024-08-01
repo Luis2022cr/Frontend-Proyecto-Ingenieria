@@ -36,7 +36,7 @@ export interface ActividadPost {
   estudiante_id: number;
   horas_art140: number;
   cupos: number;
-  fecha: string; // Considera usar 'Date' si manejas fechas de forma más compleja
+  fecha: string;
   hora_inicio: string;
   hora_final: string;
   observaciones?: string; // Opcional si no siempre se requiere
