@@ -21,6 +21,7 @@ import GestionVoae from "./pages/GestionVoae/GestionVoae";
 import ParticipantesActividad from "./pages/GestionVoae/ParticipantesActividad";
 import ResetPassword from "./pages/ResetPassword";
 import ActividadForm from "./pages/Actividades/ActividadForm";
+import HorasAlumnoVoae from "./pages/GestionVoae/HorasAlumno";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -49,6 +50,7 @@ root.render(
         <Route path="/" element={<LayoutVoae />}>
           <Route path="gestion_voae" element={<GestionVoae />} />
           <Route path="gestion_voae/participantes_actividad" element={<ParticipantesActividad />}/>
+          <Route path="horas_alumno_voae" element={<HorasAlumnoVoae />}/>
         </Route>
       </Routes>
     </BrowserRouter>

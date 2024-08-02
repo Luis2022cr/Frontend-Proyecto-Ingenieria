@@ -29,7 +29,7 @@ const Header: React.FC = () => {
           <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
             Actividades
           </Nav.Link>
-          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+          <Nav.Link className="nav-link-custom" as={Link} to="/horas_alumno_voae">
             Horas de estudiante
           </Nav.Link>
           {accessToken && (
