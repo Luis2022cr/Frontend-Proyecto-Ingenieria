@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ActividadPost, createActividad } from '../../servicios/actividadService';
+import { Ambito, fetchAmbitos } from '../../servicios/ambitoService';
 
 const ActividadForm: React.FC = () => {
   const navigate = useNavigate();
@@ -10,9 +11,7 @@ const ActividadForm: React.FC = () => {
     actividades_principales: '',
     descripcion: '',
     ubicacion: '',
-    carrera_id: 0,
     ambito_id: 0,
-    coordinador_id: 0,
     estudiante_id: 0,
     horas_art140: 0,
     cupos: 0,
@@ -23,9 +22,37 @@ const ActividadForm: React.FC = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const userId = localStorage.getItem('userId');
+  const [ambitos, setAmbitos] = useState<Ambito[]>([]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  useEffect(() => {
+    if (userId) {
+      setActividad(prevState => ({
+        ...prevState,
+        estudiante_id: Number(userId)
+      }));
+    }
+  
+    const obtenerAmbitos = async () => {
+      try {
+        const response = await fetchAmbitos();
+        setAmbitos(response);
+      } catch (err) {
+        console.error('Error fetching ambitos:', err);
+        setError('Error al obtener los ámbitos. Inténtalo de nuevo.');
+      }
+    };
+  
+    obtenerAmbitos();
+  }, [userId]); 
+  
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+  
+    // No permitir cambios en estudiante_id
+    if (name === 'estudiante_id') return;
+  
     setActividad(prevState => ({
       ...prevState,
       [name]: value,
@@ -64,39 +91,7 @@ const ActividadForm: React.FC = () => {
                 required
               />
             </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="objetivos" className="form-label">Objetivos</label>
-              <textarea
-                className="form-control"
-                id="objetivos"
-                name="objetivos"
-                value={actividad.objetivos}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="actividades_principales" className="form-label">Actividades Principales</label>
-              <textarea
-                className="form-control"
-                id="actividades_principales"
-                name="actividades_principales"
-                value={actividad.actividades_principales}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6 mb-3">
-              <label htmlFor="descripcion" className="form-label">Descripción</label>
-              <textarea
-                className="form-control"
-                id="descripcion"
-                name="descripcion"
-                value={actividad.descripcion}
-                onChange={handleChange}
-                required
-              />
-            </div>
+           
             <div className="col-md-6 mb-3">
               <label htmlFor="ubicacion" className="form-label">Ubicación</label>
               <input
@@ -109,56 +104,27 @@ const ActividadForm: React.FC = () => {
                 required
               />
             </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor="carrera_id" className="form-label">ID Carrera</label>
-              <input
-                type="number"
-                className="form-control"
-                id="carrera_id"
-                name="carrera_id"
-                value={actividad.carrera_id}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor="ambito_id" className="form-label">ID Ámbito</label>
-              <input
-                type="number"
+           
+            <div className="col-md-6 mb-3">
+              <label htmlFor="ambito_id" className="form-label">Ámbito</label>
+              <select
                 className="form-control"
                 id="ambito_id"
                 name="ambito_id"
                 value={actividad.ambito_id}
                 onChange={handleChange}
                 required
-              />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor="coordinador_id" className="form-label">ID Coordinador</label>
-              <input
-                type="number"
-                className="form-control"
-                id="coordinador_id"
-                name="coordinador_id"
-                value={actividad.coordinador_id}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-3 mb-3">
-              <label htmlFor="estudiante_id" className="form-label">ID Estudiante</label>
-              <input
-                type="number"
-                className="form-control"
-                id="estudiante_id"
-                name="estudiante_id"
-                value={actividad.estudiante_id}
-                onChange={handleChange}
-                required
-              />
+              >
+                <option value="">Selecciona un ámbito</option>
+                {ambitos.map((ambito) => (
+                  <option key={ambito.id} value={ambito.id}>
+                    {ambito.nombre_ambito}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="col-md-6 mb-3">
-              <label htmlFor="horas_art140" className="form-label">Horas ART 140</label>
+              <label htmlFor="horas_art140" className="form-label">Numero de Horas</label>
               <input
                 type="number"
                 className="form-control"
@@ -169,6 +135,7 @@ const ActividadForm: React.FC = () => {
                 required
               />
             </div>
+            
             <div className="col-md-6 mb-3">
               <label htmlFor="cupos" className="form-label">Cupos</label>
               <input
@@ -217,7 +184,41 @@ const ActividadForm: React.FC = () => {
                 required
               />
             </div>
-            <div className="col-md-12 mb-3">
+            <div className="col-md-6 mb-3">
+              <label htmlFor="objetivos" className="form-label">Objetivos</label>
+              <textarea
+                className="form-control"
+                id="objetivos"
+                name="objetivos"
+                value={actividad.objetivos}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label htmlFor="descripcion" className="form-label">Descripción</label>
+              <textarea
+                className="form-control"
+                id="descripcion"
+                name="descripcion"
+                value={actividad.descripcion}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label htmlFor="actividades_principales" className="form-label">Actividades Principales</label>
+              <textarea
+                className="form-control"
+                id="actividades_principales"
+                name="actividades_principales"
+                value={actividad.actividades_principales}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            
+            <div className="col-md-6 mb-3">
               <label htmlFor="observaciones" className="form-label">Observaciones</label>
               <textarea
                 className="form-control"

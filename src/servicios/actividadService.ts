@@ -23,25 +23,28 @@ export interface Actividad {
   informe: string | null;
 }
 
-// interfaz para solicitud post
+// Interfaz para solicitud POST
 export interface ActividadPost {
   nombre_actividad: string;
   objetivos: string;
   actividades_principales: string;
   descripcion: string;
   ubicacion: string;
-  carrera_id: number;
   ambito_id: number;
-  coordinador_id: number;
   estudiante_id: number;
   horas_art140: number;
   cupos: number;
   fecha: string;
   hora_inicio: string;
   hora_final: string;
-  observaciones?: string; // Opcional si no siempre se requiere
+  observaciones?: string;
 }
 
+//Crear nuevo
+export const createActividad = async (actividad: Omit<ActividadPost, 'id'>): Promise<ActividadPost> => {
+const response = await axiosInstance.post('/actividades', actividad);
+return response.data;
+};
 
   
   //Lista de todas las actividades
@@ -51,11 +54,6 @@ export interface ActividadPost {
     return response.data;
   };
 
-  //Crear nuevo
-export const createActividad = async (actividad: Omit<ActividadPost, 'id'>): Promise<ActividadPost> => {
-  const response = await axiosInstance.post('/actividades', actividad);
-  return response.data;
-};
 
 //editar
 export const updateActividad = async (id: number, actividad: Omit<ActividadPost, 'id'>): Promise<ActividadPost> => {
