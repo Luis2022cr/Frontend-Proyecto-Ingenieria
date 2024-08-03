@@ -289,10 +289,7 @@ const HorasAlumnoPorUsuario: React.FC = () => {
               <th scope="col">Carrera</th>
               <th scope="col">Ámbito</th>
               <th scope="col">Horas</th>
-              <th scope="col">Cupos</th>
               <th scope="col">Fecha</th>
-              <th scope="col">Inicio</th>
-              <th scope="col">Final</th>
             </tr>
           </thead>
           <tbody>
@@ -304,10 +301,7 @@ const HorasAlumnoPorUsuario: React.FC = () => {
                 <td>{nombresCarreras[actividad.carrera_id]}</td>
                 <td>{nombresAmbitos[actividad.ambito_id]}</td>
                 <td>{actividad.horas_art140}</td>
-                <td>{actividad.cupos}</td>
                 <td>{formatDate(actividad.fecha)}</td>
-                <td>{actividad.hora_inicio}</td>
-                <td>{actividad.hora_final}</td>
               </tr>
             ))}
           </tbody>

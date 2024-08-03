@@ -206,7 +206,10 @@ useEffect(() => {
   }
 
   const handleCloseErrorModal = () => setShowErrorModal(false);
-  const handleCloseSuccessModal = () => setShowSuccessModal(false);
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    window.location.reload();
+  };
 
   return (
     <div className="container mt-5">
@@ -303,8 +306,8 @@ useEffect(() => {
       </Row>
       
       <div className="table-responsive mt-5">
-        <table className="table text-center">
-          <thead>
+      <table className="table text-center small-text">
+      <thead>
             <tr className="table-custom-warning">
               <th scope="col">Nombre</th>
               <th scope="col">Descripción</th>
@@ -314,8 +317,6 @@ useEffect(() => {
               <th scope="col">Horas</th>
               <th scope="col">Cupos</th>
               <th scope="col">Fecha</th>
-              <th scope="col">Inicio</th>
-              <th scope="col">Final</th>
               <th scope="col">Unirse/Cancelar</th>
             </tr>
           </thead>
@@ -328,10 +329,8 @@ useEffect(() => {
                 <td>{actividad.carrera}</td>
                 <td>{actividad.ambito}</td>
                 <td>{actividad.horas_art140}</td>
-                <td>{actividad.cupos}</td>
-                <td>{formatDate(actividad.fecha)}</td>
-                <td>{actividad.hora_inicio}</td>
-                <td>{actividad.hora_final}</td>
+                <td>{actividad.cupos_disponibles}</td>
+                <td>{formatDate(actividad.fecha)} {actividad.hora_inicio} - {actividad.hora_final}</td>
                 <td>
                   {/*Boton para unirse a las actividades*/}
                   

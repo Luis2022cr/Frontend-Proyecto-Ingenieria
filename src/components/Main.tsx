@@ -1,21 +1,30 @@
 import { useEffect } from "react";
+import main from '../media/main.png';
 
 export default function Main() {
   useEffect(() => {
     document.title = "Inicio ";
   }, []);
 
+  const handleContextMenu = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDragStart = (event: React.DragEvent<HTMLImageElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
-      <div className="container text-center mt-5">
-        <div className="jumbotron">
-          <h1 className="display-4">Bienvenido a Mi Aplicación</h1>
-          <p className="lead">Esta es una simple aplicación de ejemplo usando React, TypeScript y Bootstrap.</p>
-          <hr className="my-4" />
-          <p>Para comenzar, edita <code>App.tsx</code> y guarda para recargar.</p>
-          <a className="btn btn-primary btn-lg" href="https://react-bootstrap.netlify.app/docs/forms/overview/" target="_blank" rel="noopener noreferrer" role="button">Aprender más</a>
-        </div>
+      <div className="container-fluid p-0 d-flex align-items-center justify-content-center" style={{ height: '85vh' }}>
+        <img
+          src={main}
+          alt="logo main"
+          className="w-100 h-100 object-fit-cover"
+          onContextMenu={handleContextMenu}
+          onDragStart={handleDragStart}
+        />
       </div>
     </>
-  )
+  );
 }
