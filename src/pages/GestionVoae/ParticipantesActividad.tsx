@@ -1,51 +1,37 @@
+import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Row, Col, Modal, Button } from "react-bootstrap";
 import logoVoae from "../../media/logo_voae.png";
-import { Actividad, fetchActividades } from "../../servicios/actividadService";
 import "../../components/style.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { fetchParticipantesPorActividadId, ActividadConParticipantes } from "../../servicios/actividadParticipanteService";
 
-//Datos que se usaran en los filtros
 const ParticipantesActividad: React.FC = () => {
-  const [formData, setFormData] = useState({
-    nombre_actividad: "",
-    carrera_id: "",
-    ambito_id: "",
-    fecha_inicio: "",
-    fecha_final: "",
-  });
-
-  const [actividades, setActividades] = useState<Actividad[]>([]);
-
+  const { id } = useParams<{ id?: string }>();
+  const [actividad, setActividad] = useState<ActividadConParticipantes | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
 
   useEffect(() => {
-    const obtenerActividades = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const actividades = await fetchActividades();
-        setActividades(actividades);
-       
-      } catch (error) {
-        setError("Error fetching actividades");
-        console.error("Error fetching actividades:", error);
-      } finally {
-        setLoading(false);
+    const obtenerParticipantes = async () => {
+      if (id) {
+        setLoading(true);
+        setError(null);
+        try {
+          const data = await fetchParticipantesPorActividadId(parseInt(id));
+          setActividad(data);
+        } catch (error) {
+          setError('Error al obtener los participantes de la actividad.');
+          setShowErrorModal(true);
+        } finally {
+          setLoading(false);
+        }
       }
     };
-    obtenerActividades();
-  }, []);
 
- 
-
-  //Obtener id del dato seleccionado
-  const handleChange = (e: React.ChangeEvent<HTMLElement>) => {
-    const target = e.target as HTMLInputElement | HTMLSelectElement;
-    setFormData({ ...formData, [target.name]: target.value });
-  };
+    obtenerParticipantes();
+  }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,32 +40,18 @@ const ParticipantesActividad: React.FC = () => {
   const handleCloseErrorModal = () => setShowErrorModal(false);
 
   return (
-    //Parte superior, Filtros
     <div className="container mt-5">
       <Row>
         <Col className="centrarContenido">
           <img src={logoVoae} className="voaeLogo" alt="logo" />
         </Col>
         <Col md={7}>
-          <div className="left-aligned">
-            <Row className="mt-4">
-              {/*Filtro por nombre de la actividad*/}
-              <Col>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Nombre de actividad"
-                  name="nombre_actividad"
-                  value={formData.nombre_actividad}
-                  onChange={handleChange}
-                />
-              </Col>
-            </Row>
-          </div>
+          {actividad && (
+            <h2>{actividad.nombre_actividad}</h2>
+          )}
         </Col>
       </Row>
 
-      {/*Tabla de los datos*/}
       <div className="table-responsive mt-5">
         <table className="table text-center">
           <thead>
@@ -89,12 +61,18 @@ const ParticipantesActividad: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {actividades.map((actividad) => (
-              <tr key={actividad.id}>
-                <td>{actividad.nombre_actividad}</td>
-                <td>{actividad.descripcion}</td>
+            {actividad ? (
+              actividad.participantes.map(participante => (
+                <tr key={participante.id}>
+                  <td>{participante.nombre} {participante.apellido}</td>
+                  <td>{participante.numero_usuario}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={2}>No se encontraron participantes para esta actividad.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

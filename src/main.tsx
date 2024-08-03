@@ -51,8 +51,11 @@ root.render(
         
         <Route path="/" element={<LayoutVoae />}>
           <Route path="gestion_voae" element={<GestionVoae />} />
+          <Route
+            path="gestion_voae/participantes_actividad/:id"
+            element={<ParticipantesActividad />}
+          />
           <Route path="registro" element={<Registro />} />
-          <Route path="gestion_voae/participantes_actividad" element={<ParticipantesActividad />} />
           <Route path="horas_alumno_voae" element={<HorasAlumnoVoae />} />
         </Route>
 
