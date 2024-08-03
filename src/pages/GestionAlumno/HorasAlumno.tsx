@@ -144,7 +144,18 @@ const HorasAlumnoPorUsuario: React.FC = () => {
 
     setFilteredActividades(filtered);
   };
-  
+
+  //Sumatoria de horas por ambito
+  const calcularHorasPorAmbito = (nombreAmbito: string) => {
+    const totalHoras = actividades.reduce((suma: number, actividad) => {
+      if (nombresAmbitos[actividad.ambito_id] === nombreAmbito) {
+        return suma + Number(actividad.horas_art140);
+      }
+      return suma;
+    }, 0);
+    
+    return totalHoras;
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -231,6 +242,41 @@ const HorasAlumnoPorUsuario: React.FC = () => {
           </div>
         </Col>
       </Row>
+
+      {/*Aqui se muestra en tabla las horas completadas por el alumno*/}
+      <div className='mt-5 mb-5 table-responsive horasCompletadasContainer'>
+        <table className='table text-center'>
+          <thead>
+            <tr className='table-custom-horas'>
+              <th>Ambito</th>
+              <th>Horas completadas</th>
+              <th>Horas requeridas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cultural</td>
+              <td>{calcularHorasPorAmbito('Cultural')}</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Social</td>
+              <td>{calcularHorasPorAmbito('Social')}</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Deportivo</td>
+              <td>{calcularHorasPorAmbito('Deportivo')}</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td>Cientifico</td>
+              <td>{calcularHorasPorAmbito('Cientifico')}</td>
+              <td>15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       
       {/*Tabla de los datos*/}
       <div className="table-responsive mt-5">

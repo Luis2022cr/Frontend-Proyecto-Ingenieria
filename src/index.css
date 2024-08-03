@@ -34,7 +34,7 @@ body {
 /* styles.css */
 .login-container,
 .reset-password-container,
- {
+{
   display: flex;
   justify-content: center;
   align-items: center;

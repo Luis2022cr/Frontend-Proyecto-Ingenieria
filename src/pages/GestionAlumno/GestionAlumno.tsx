@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Modal, Button, Form } from 'react-bootstrap';
 import logoVoae from '../../media/logo_voae.png';
 import { Actividad, fetchActividades } from '../../servicios/actividadService';
-import { añadirParticipante } from '../../servicios/actividadParticipanteService';
+import { ActividadUser, fetchActividadesAlumnoPorId } from '../../servicios/actividadParticipanteService';
+import { añadirParticipante, quitarParticipante } from '../../servicios/actividadParticipanteService';
 import axiosInstance from '../../api/axiosInstance';
 import '../../components/style.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -39,6 +40,7 @@ const HorasAlumno: React.FC = () => {
   });
 
   const [actividades, setActividades] = useState<Actividad[]>([]);
+  const [actividadesUser, setActividadesUser] = useState<ActividadUser[]>([]);
   const [filteredActividades, setFilteredActividades] = useState<Actividad[]>([]);
   const [carreras, setCarreras] = useState<Carrera[]>([]);
   const [ambitos, setAmbitos] = useState<Ambito[]>([]);
@@ -142,17 +144,61 @@ const HorasAlumno: React.FC = () => {
     setFilteredActividades(filtered);
   };
 
+//Lista de actividades del usuario
+useEffect(() => {
+  const obtenerActividades = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const actividadesAlumno = await fetchActividadesAlumnoPorId(Number(userId));
+      if (actividadesAlumno) {
+        setActividadesUser(actividadesAlumno.actividades);
+      }
+    } catch (error) {
+      setError('Error fetching actividades');
+      console.error('Error fetching actividades:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  obtenerActividades();
+}, [userId]);
+
   //Unirse a una actividad
   const handleUnirse = async (id_actividad: number) => {
     if (!userId) return;
 
     try {
       await añadirParticipante({ id_usuario: Number(userId), id_actividad });
+      const actividadesAlumno = await fetchActividadesAlumnoPorId(Number(userId));
+      if (actividadesAlumno) {
+        setActividadesUser(actividadesAlumno.actividades);
+      }
       setShowSuccessModal(true);
+      // await añadirParticipante({ id_usuario: Number(userId), id_actividad });
+      // setShowSuccessModal(true);
     } catch (error) {
       setError('Error al unirse a la actividad.');
       setShowErrorModal(true);
     }
+  };
+
+  //Cancelar una actividad
+  const handleEliminar = async (id_actividad: number) => {
+    if (!userId) return;
+
+    try {
+      await quitarParticipante({ id_usuario: Number(userId), id_actividad });
+      setShowSuccessModal(true);
+    } catch (error) {
+      setError('Error al cancelar a la actividad.');
+      setShowErrorModal(true);
+    }
+  };
+
+  //Revisar si el usuario ya esta participando en una actividad
+  const isParticipated = (id_actividad: number) => {
+    return actividadesUser.some(actividad => actividad.id === id_actividad);
   };
 
   if (loading) {
@@ -288,9 +334,11 @@ const HorasAlumno: React.FC = () => {
                 <td>{actividad.hora_final}</td>
                 <td>
                   {/*Boton para unirse a las actividades*/}
+                  
                   <button 
                     className="btn botonUnirse"
                     onClick={() => handleUnirse(actividad.id)}
+                    disabled={isParticipated(actividad.id)}
                   >
                     <i className="bi bi-plus-circle-fill"></i>
                   </button>
@@ -298,6 +346,7 @@ const HorasAlumno: React.FC = () => {
                   {/*Boton para cancelar una actividad No esta listo*/}
                   <button 
                     className="btn botonCancelar"
+                    onClick={() => handleEliminar(actividad.id)}
                   >
                     <i className="bi bi-x-circle-fill"></i>
                   </button>
@@ -326,7 +375,7 @@ const HorasAlumno: React.FC = () => {
         <Modal.Header closeButton>
           <Modal.Title>Éxito</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Te has unido a la actividad con éxito.</Modal.Body>
+        <Modal.Body>La operacion se a realizado con exito.</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleCloseSuccessModal}>
             Cerrar

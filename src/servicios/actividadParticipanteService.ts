@@ -1,6 +1,6 @@
 import axiosInstance from "../api/axiosInstance";
 
-
+//Datos de las actividades del usuario
 export interface ActividadUser {
   id: number;
   nombre_actividad: string;
@@ -15,6 +15,7 @@ export interface ActividadUser {
   hora_final: string;
 }
 
+//Datos de los participantes de las actividades
 export interface ActividadParticipantes {
   id: number;
   nombre: string;
@@ -23,6 +24,7 @@ export interface ActividadParticipantes {
   actividades: ActividadUser[];
 }
 
+//Datos para agregar o eliminar un participante de una actividad
 interface actividadParticipante {
   id_usuario: number;
   id_actividad: number;
@@ -49,6 +51,19 @@ interface actividadParticipante {
     } catch (error) {
       console.error('Error añadiendo participante:', error);
       throw new Error('Error al añadir participante.');
+    }
+  };
+
+  //Quitar a un usuario de una actividad
+  export const quitarParticipante = async (request: actividadParticipante): Promise<string> => {
+    console.log('Enviando solicitud:', request); // Agregar este log
+    try {
+      const response = await axiosInstance.put('/actividades-participantes', request);
+      console.log('Respuesta del servidor:', response.data); // Agregar este log
+      return response.data; // Asume que la respuesta es un mensaje
+    } catch (error) {
+      console.error('Error eliminando participante:', error);
+      throw new Error('Error al eliminar participante.');
     }
   };
   
