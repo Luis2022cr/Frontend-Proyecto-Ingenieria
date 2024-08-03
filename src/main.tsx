@@ -39,7 +39,7 @@ root.render(
           <Route path="carreras/:id" element={<DetallesCarreras />} />
           <Route path="carreras/nueva" element={<CarreraForm />} />
           <Route path="carreras/editar/:id" element={<CarreraForm />} />
-        <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
           <Route path="actividades/crear" element={<ActividadForm />} />
         </Route>
         <Route path="/" element={<LayoutAlumno />}>
@@ -48,7 +48,10 @@ root.render(
         </Route>
         <Route path="/" element={<LayoutVoae />}>
           <Route path="gestion_voae" element={<GestionVoae />} />
-          <Route path="gestion_voae/participantes_actividad" element={<ParticipantesActividad />}/>
+          <Route
+            path="gestion_voae/participantes_actividad/:id"
+            element={<ParticipantesActividad />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

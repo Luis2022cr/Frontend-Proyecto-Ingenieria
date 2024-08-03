@@ -302,7 +302,7 @@ const GestionVoae: React.FC = () => {
                 <td>{actividad.hora_final}</td>
                 <td>
                   <Link
-                    to="/gestion_voae/participantes_actividad"
+                    to={`/gestion_voae/participantes_actividad/${actividad.id}`}
                     className="btn botonParticipantes"
                   >
                     <i className="bi bi-exclamation"></i>
