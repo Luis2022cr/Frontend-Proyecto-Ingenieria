@@ -36,13 +36,6 @@ const Header: React.FC = () => {
         >
           Gestion VOAE
         </Nav.Link>
-        <Nav.Link
-          className="text-light verticalCenter mt-1"
-          as={Link}
-          to="/actividades/crear"
-        >
-          Crear actividad
-        </Nav.Link>
       </Nav>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

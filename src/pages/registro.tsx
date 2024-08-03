@@ -3,6 +3,7 @@ import axios from 'axios';
 import axiosInstance from '../api/axiosInstance';
 import { Button, Form, Container, Alert, Row, Col } from 'react-bootstrap';
 import LogoVoae from '../media/logo_voae.png';
+import '../components/style.css';
 
 interface Carrera {
   id: number;
@@ -118,10 +119,10 @@ const Registro: React.FC = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <div className="registration-logo">
-        <img src={LogoVoae} alt="Logo" />
+        <img src={LogoVoae} alt="Logo" className='imgS'/>
       </div>
       <div className="registration-card">
-        <h2 className="text-center mb-4">Registrarse</h2>
+        <h2 className="text-center mb-4">Registro</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         {success && <Alert variant="success">{success}</Alert>}
         <Form onSubmit={botonRegistro}>

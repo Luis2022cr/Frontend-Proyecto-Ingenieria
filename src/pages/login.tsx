@@ -4,6 +4,7 @@ import useAuth from '../api/useAuth';
 import { Button, Form, Container, Alert, Row, Col, Modal } from 'react-bootstrap'; // Importa Modal de react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import LogoVoae from '../media/logo_voae.png';
+import '../components/style.css';
 
 const Login: React.FC = () => {
   const { login, accessToken } = useAuth();
@@ -18,7 +19,7 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/carreras');
+      navigate('/carreras'); // Aquí puedes redirigir a una ruta predeterminada si es necesario
     }
   }, [accessToken, navigate]);
 
@@ -34,10 +35,21 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post('/auth/login', formData);
-      login(response.data.token, response.data.id, response.data.role_id, response.data.numero_usuario);
+      const { token, id, role_id, numero_usuario } = response.data;
+      login(token, id, role_id, numero_usuario);
+
       setSuccess('Inicio de sesión exitoso');
       setError(null);
-      navigate('/carreras');
+
+      // Redirigir según el rol
+      if (role_id === 1) {
+        navigate('/gestion_voae');
+      } else if (role_id === 2 || role_id === 3) {
+        navigate('/gestion_alumno');
+      } else {
+        // Redirigir a una ruta por defecto o mostrar un error si el rol no está definido
+        navigate('/');
+      }
     } catch (err) {
       setError('Número de usuario o contraseña incorrectos');
       setSuccess(null);
@@ -48,8 +60,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await axiosInstance.post('/auth/generar-correo-recuperacion', emailData);
-      if(response){
-
+      if (response) {
         setModalSuccess('Correo de restablecimiento de contraseña enviado');
         setModalError(null);
       }
@@ -70,7 +81,7 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <Container className="d-flex flex-column align-items-center">
-        <img src={LogoVoae} alt="Login" className="mb-4" />
+        <img src={LogoVoae} alt="Login" className="mb-4 imgS" />
         <div className="login-card">
           <h2 className='text-center mb-4'>Login</h2>
           {error && <Alert variant="danger">{error}</Alert>}

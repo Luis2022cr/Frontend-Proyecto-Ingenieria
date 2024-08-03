@@ -36,22 +36,22 @@ root.render(
         <Route path="/" element={<Layout />}>
           <Route index element={<App />} />
           <Route path="login" element={<Login />} />
-          <Route path="registro" element={<Registro />} />
           <Route path="carreras" element={<Carreras />} />
           <Route path="carreras/:id" element={<DetallesCarreras />} />
           <Route path="carreras/nueva" element={<CarreraForm />} />
           <Route path="carreras/editar/:id" element={<CarreraForm />} />
           <Route path="reset-password" element={<ResetPassword />} />
-          <Route path="actividades/crear" element={<ActividadForm />} />
         </Route>
       
         <Route path="/" element={<LayoutAlumno />}>
           <Route path="gestion_alumno" element={<GestionAlumno />} />
+          <Route path="actividades/crear" element={<ActividadForm />} />
           <Route path="horas_alumno/:id" element={<HorasAlumno />} />
         </Route>
         
         <Route path="/" element={<LayoutVoae />}>
           <Route path="gestion_voae" element={<GestionVoae />} />
+          <Route path="registro" element={<Registro />} />
           <Route path="gestion_voae/participantes_actividad" element={<ParticipantesActividad />} />
           <Route path="horas_alumno_voae" element={<HorasAlumnoVoae />} />
         </Route>
