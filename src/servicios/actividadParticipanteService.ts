@@ -58,21 +58,6 @@ export const fetchActividadesAlumnoPorId = async (
   }
 };
 
-//Usuario puede unirse a una actividad
-export const añadirParticipante = async (
-  request: actividadParticipante
-): Promise<string> => {
-  console.log("Enviando solicitud:", request); // Agregar este log
-  try {
-    const response = await axiosInstance.post("/participantes", request);
-    console.log("Respuesta del servidor:", response.data); // Agregar este log
-    return response.data; // Asume que la respuesta es un mensaje
-  } catch (error) {
-    console.error("Error añadiendo participante:", error);
-    throw new Error("Error al añadir participante.");
-  }
-};
-
 // Obtener lista de participantes de una actividad específica
 export const fetchParticipantesPorActividadId = async (
   id_actividad: number
@@ -87,17 +72,6 @@ export const fetchParticipantesPorActividadId = async (
     return null;
   }
 };
-  
-  //Actividades en las que esta un usuario
-  export const fetchActividadesAlumnoPorId = async (id: number): Promise<ActividadParticipantes | null> => {
-    try {
-      const response = await axiosInstance.get<ActividadParticipantes>(`/usuarios/${id}/actividades`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching actividades del alumno:', error);
-      return null;
-    }
-  };
 
   //Usuario puede unirse a una actividad
   export const añadirParticipante = async (request: actividadParticipante): Promise<string> => {
