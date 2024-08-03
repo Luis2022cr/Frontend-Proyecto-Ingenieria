@@ -3,6 +3,7 @@ import axiosInstance from '../api/axiosInstance';
 import { Button, Form, Container, Alert, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import LogoVoae from '../media/logo_voae.png';
+import '../components/style.css';
 
 const ResetPassword: React.FC = () => {
   const [formData, setFormData] = useState({ token: '', nuevaContrasena: '', confirmacionContrasena: '' });

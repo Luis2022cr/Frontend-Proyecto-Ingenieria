@@ -27,7 +27,7 @@ interface Ambito {
 //Datos que se usaran en los filtros
 const HorasAlumnoPorUsuario: React.FC = () => {
   const [formData, setFormData] = useState({
-    nombre_actividad: '',
+    numero_cuenta: '',
     ambito_id: '',
     fecha_inicio: '',
     fecha_final: ''
@@ -114,13 +114,13 @@ const HorasAlumnoPorUsuario: React.FC = () => {
 
   //Gestion de los filtros y sus parametros
   const handleFiltrar = () => {
-    const {ambito_id, nombre_actividad, fecha_inicio, fecha_final } = formData;
+    const {ambito_id, numero_cuenta, fecha_inicio, fecha_final } = formData;
     let filtered = actividades;
 
     // Filtrar por nombre de actividad
-    if (nombre_actividad) {
+    if (numero_cuenta) {
       filtered = filtered.filter(actividad =>
-        actividad.nombre_actividad.toLowerCase().includes(nombre_actividad.toLowerCase())
+        actividad.nombre_actividad.toLowerCase().includes(numero_cuenta.toLowerCase())
       );
     }
 
@@ -144,18 +144,7 @@ const HorasAlumnoPorUsuario: React.FC = () => {
 
     setFilteredActividades(filtered);
   };
-
-  //Sumatoria de horas por ambito
-  const calcularHorasPorAmbito = (nombreAmbito: string) => {
-    const totalHoras = actividades.reduce((suma: number, actividad) => {
-      if (nombresAmbitos[actividad.ambito_id] === nombreAmbito) {
-        return suma + Number(actividad.horas_art140);
-      }
-      return suma;
-    }, 0);
-    
-    return totalHoras;
-  };
+  
 
   if (loading) {
     return <div>Loading...</div>;
@@ -227,9 +216,9 @@ const HorasAlumnoPorUsuario: React.FC = () => {
                 <input
                   type='text'
                   className='form-control'
-                  placeholder='Nombre de actividad'
-                  name="nombre_actividad"
-                  value={formData.nombre_actividad}
+                  placeholder='Numero de cuenta'
+                  name="numero_cuenta"
+                  value={formData.numero_cuenta}
                   onChange={handleChange}
                 />
               </Col>
@@ -242,41 +231,6 @@ const HorasAlumnoPorUsuario: React.FC = () => {
           </div>
         </Col>
       </Row>
-
-      {/*Aqui se muestra en tabla las horas completadas por el alumno*/}
-      <div className='mt-5 mb-5 table-responsive horasCompletadasContainer'>
-        <table className='table text-center'>
-          <thead>
-            <tr className='table-custom-horas'>
-              <th>Ambito</th>
-              <th>Horas completadas</th>
-              <th>Horas requeridas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Cultural</td>
-              <td>{calcularHorasPorAmbito('Cultural')}</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>Social</td>
-              <td>{calcularHorasPorAmbito('Social')}</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>Deportivo</td>
-              <td>{calcularHorasPorAmbito('Deportivo')}</td>
-              <td>15</td>
-            </tr>
-            <tr>
-              <td>Cientifico</td>
-              <td>{calcularHorasPorAmbito('Cientifico')}</td>
-              <td>15</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
       
       {/*Tabla de los datos*/}
       <div className="table-responsive mt-5">
@@ -289,7 +243,10 @@ const HorasAlumnoPorUsuario: React.FC = () => {
               <th scope="col">Carrera</th>
               <th scope="col">Ámbito</th>
               <th scope="col">Horas</th>
+              <th scope="col">Cupos</th>
               <th scope="col">Fecha</th>
+              <th scope="col">Inicio</th>
+              <th scope="col">Final</th>
             </tr>
           </thead>
           <tbody>
@@ -301,7 +258,10 @@ const HorasAlumnoPorUsuario: React.FC = () => {
                 <td>{nombresCarreras[actividad.carrera_id]}</td>
                 <td>{nombresAmbitos[actividad.ambito_id]}</td>
                 <td>{actividad.horas_art140}</td>
+                <td>{actividad.cupos}</td>
                 <td>{formatDate(actividad.fecha)}</td>
+                <td>{actividad.hora_inicio}</td>
+                <td>{actividad.hora_final}</td>
               </tr>
             ))}
           </tbody>

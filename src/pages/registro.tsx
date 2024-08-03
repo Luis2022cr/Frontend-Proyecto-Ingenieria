@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Asegúrate de importar axios si lo usas directamente
+import axios from 'axios';
 import axiosInstance from '../api/axiosInstance';
 import { Button, Form, Container, Alert, Row, Col } from 'react-bootstrap';
 import LogoVoae from '../media/logo_voae.png';
+import '../components/style.css';
 
 interface Carrera {
   id: number;
@@ -17,8 +18,8 @@ const Registro: React.FC = () => {
     numero_usuario: '',
     contrasena: '',
     confirmacionContrasena: '',
-    carrera_id: '',
-    role_id: ''
+    carrera_id: 0,
+    role_id: 0
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -40,11 +41,40 @@ const Registro: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLElement>) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
-    setFormData({ ...formData, [target.name]: target.value });
+    const { name, value } = target;
+    // Convertir los valores de carrera_id y role_id a números
+    if (name === 'carrera_id' || name === 'role_id') {
+      setFormData({ ...formData, [name]: Number(value) });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const validateForm = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@unah\.(edu\.hn|hn)$/;
+    const numberRegex = /^\d+$/;
+
+    if (!emailRegex.test(formData.correo_institucional)) {
+      setError('El correo institucional debe ser de los dominios @unah.hn o @unah.edu.hn.');
+      return false;
+    }
+
+    if (!numberRegex.test(formData.numero_usuario)) {
+      setError('El número de cuenta/empleado debe ser numérico.');
+      return false;
+    }
+
+    return true;
   };
 
   const botonRegistro = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validar el formulario antes de enviar
+    if (!validateForm()) {
+      setSuccess(null);
+      return;
+    }
 
     // Verificar que las contraseñas coincidan
     if (formData.contrasena !== formData.confirmacionContrasena) {
@@ -64,14 +94,15 @@ const Registro: React.FC = () => {
         numero_usuario: '',
         contrasena: '',
         confirmacionContrasena: '',
-        carrera_id: '',
-        role_id: ''
+        carrera_id: 0,
+        role_id: 0
       });
     } catch (err) {
-      // Handle specific errors
       if (axios.isAxiosError(err) && err.response) {
         const errorMsg = err.response.data.error;
-        if (errorMsg === 'El correo institucional ya está registrado') {
+        if (errorMsg === 'Ya existe un usuario con este rol en esta carrera') {
+          setError('Ya existe un usuario con este rol en esta carrera. Por favor, elige otro rol o carrera.');
+        } else if (errorMsg === 'El correo institucional ya está registrado') {
           setError('El correo institucional ya está registrado. Por favor, usa otro.');
         } else if (errorMsg === 'El número de usuario ya está en uso') {
           setError('El número de Cuenta-Empleado ya está en uso. Por favor, elige otro número.');
@@ -88,10 +119,10 @@ const Registro: React.FC = () => {
   return (
     <Container className="d-flex flex-column align-items-center">
       <div className="registration-logo">
-        <img src={LogoVoae} alt="Logo" />
+        <img src={LogoVoae} alt="Logo" className='imgS'/>
       </div>
       <div className="registration-card">
-        <h2 className="text-center mb-4">Registrarse</h2>
+        <h2 className="text-center mb-4">Registro</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         {success && <Alert variant="success">{success}</Alert>}
         <Form onSubmit={botonRegistro}>
@@ -184,6 +215,7 @@ const Registro: React.FC = () => {
             <Form.Control
               as="select"
               name="carrera_id"
+              id="carrera_id"
               value={formData.carrera_id}
               onChange={handleChange}
               required
@@ -201,14 +233,15 @@ const Registro: React.FC = () => {
             <Form.Control
               as="select"
               name="role_id"
+              id="role_id"
               value={formData.role_id}
               onChange={handleChange}
               required
             >
               <option value="">Selecciona un rol</option>
-              <option value="1">Administrador</option>
-              <option value="2">Coordinador</option>
-              <option value="3">Estudiante</option>
+              <option value={1}>Administrador</option>
+              <option value={2}>Coordinador</option>
+              <option value={3}>Estudiante</option>
             </Form.Control>
           </Form.Group>
           <div className="submit-button">

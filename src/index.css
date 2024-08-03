@@ -34,7 +34,7 @@ body {
 /* styles.css */
 .login-container,
 .reset-password-container,
- {
+{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,8 +80,6 @@ body {
   border-radius: 50px;
 }
 
-img {
-  width: 100%;
-  max-width: 400px; /* Ancho máximo del logo */
-  height: auto;
+.object-fit-cover {
+  object-fit: cover;
 }
