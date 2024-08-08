@@ -22,6 +22,7 @@ import ParticipantesActividad from "./pages/GestionVoae/ParticipantesActividad";
 import ResetPassword from "./pages/ResetPassword";
 import ActividadForm from "./pages/Actividades/ActividadForm";
 import HorasAlumnoVoae from "./pages/GestionVoae/HorasAlumno";
+import GestionSolicitud from "./pages/GestionVoae/GestionSolicitud";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -57,6 +58,7 @@ root.render(
           />
           <Route path="registro" element={<Registro />} />
           <Route path="horas_alumno_voae" element={<HorasAlumnoVoae />} />
+          <Route path="gestion_solicitud" element={<GestionSolicitud />} />
         </Route>
 
       </Routes>

@@ -23,10 +23,10 @@ const Header: React.FC = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+          <Nav.Link className="nav-link-custom" as={Link} to="/gestion_solicitud">
             Gestion Solicitudes
           </Nav.Link>
-          <Nav.Link className="nav-link-custom" as={Link} to="/PrincipalEstudiante">
+          <Nav.Link className="nav-link-custom" as={Link} to="/gestion_voae">
             Actividades
           </Nav.Link>
           <Nav.Link className="nav-link-custom" as={Link} to="/horas_alumno_voae">
