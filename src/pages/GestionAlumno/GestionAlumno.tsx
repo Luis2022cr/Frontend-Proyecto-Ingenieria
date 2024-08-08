@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Row, Col, Modal, Button, Form } from 'react-bootstrap';
 import logoVoae from '../../media/logo_voae.png';
 import { Actividad, fetchActividades } from '../../servicios/actividadService';
-import { ActividadUser, fetchActividadesAlumnoPorId } from '../../servicios/actividadParticipanteService';
+import { ActividadUser,  fetchActividadesAlumnoPorIdUnido } from '../../servicios/actividadParticipanteService';
 import { añadirParticipante, quitarParticipante } from '../../servicios/actividadParticipanteService';
 import axiosInstance from '../../api/axiosInstance';
 import '../../components/style.css';
@@ -150,7 +150,7 @@ useEffect(() => {
     setLoading(true);
     setError(null);
     try {
-      const actividadesAlumno = await fetchActividadesAlumnoPorId(Number(userId));
+      const actividadesAlumno = await fetchActividadesAlumnoPorIdUnido(Number(userId));
       if (actividadesAlumno) {
         setActividadesUser(actividadesAlumno.actividades);
       }
@@ -170,13 +170,12 @@ useEffect(() => {
 
     try {
       await añadirParticipante({ id_usuario: Number(userId), id_actividad });
-      const actividadesAlumno = await fetchActividadesAlumnoPorId(Number(userId));
+      const actividadesAlumno = await fetchActividadesAlumnoPorIdUnido(Number(userId));
       if (actividadesAlumno) {
         setActividadesUser(actividadesAlumno.actividades);
       }
       setShowSuccessModal(true);
-      // await añadirParticipante({ id_usuario: Number(userId), id_actividad });
-      // setShowSuccessModal(true);
+    
     } catch (error) {
       setError('Error al unirse a la actividad.');
       setShowErrorModal(true);

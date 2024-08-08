@@ -49,7 +49,7 @@ export const fetchActividadesAlumnoPorId = async (
 ): Promise<ActividadParticipantes | null> => {
   try {
     const response = await axiosInstance.get<ActividadParticipantes>(
-      `/usuarios/${id}/actividades`
+      `/usuarios/${id}/finalizado`
     );
     return response.data;
   } catch (error) {
@@ -99,3 +99,16 @@ export const fetchParticipantesPorActividadId = async (
     }
   };
   
+  export const fetchActividadesAlumnoPorIdUnido = async (
+    id: number
+  ): Promise<ActividadParticipantes | null> => {
+    try {
+      const response = await axiosInstance.get<ActividadParticipantes>(
+        `/usuarios/${id}/unido`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching actividades del alumno:", error);
+      return null;
+    }
+  };
