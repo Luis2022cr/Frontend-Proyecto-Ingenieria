@@ -55,6 +55,11 @@
   width: 50%;
 }
 
+.botonUnirse:disabled {
+  color: black;
+  background-color: #767676;
+}
+
 .botonCancelar {
   color: white;
   background-color: #d31d0d;
